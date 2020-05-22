@@ -1,1 +1,1 @@
-# isl_training_k01
+# isl_mngt
