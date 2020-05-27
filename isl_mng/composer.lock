@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6558f74828bca9ebecac73d90cea4b1a",
+    "content-hash": "0a51455e9851ee2e6400ae9ed05975e5",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4200,6 +4200,135 @@
                 "test"
             ],
             "time": "2016-01-20T08:20:44+00:00"
+        },
+        {
+            "name": "ibex/crud-generator",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/awais-vteams/laravel-crud-generator.git",
+                "reference": "62198555130519e30bb5da8c19810e509890f4cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/awais-vteams/laravel-crud-generator/zipball/62198555130519e30bb5da8c19810e509890f4cf",
+                "reference": "62198555130519e30bb5da8c19810e509890f4cf",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^5.5|^6.0|^7.0",
+                "laravelcollective/html": "^5.4|^6.0|^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Ibex\\CrudGenerator\\CrudServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ibex\\CrudGenerator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "M Awais",
+                    "email": "asargodha@gmail.com"
+                }
+            ],
+            "description": "Laravel Crud Generator",
+            "keywords": [
+                "crud",
+                "crud generator",
+                "laravel",
+                "laravel crud generator",
+                "laravel package"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/awais-vteams",
+                    "type": "github"
+                },
+                {
+                    "url": "https://ko-fi.com/mawais",
+                    "type": "ko_fi"
+                }
+            ],
+            "time": "2020-03-04T17:27:05+00:00"
+        },
+        {
+            "name": "laravelcollective/html",
+            "version": "v6.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LaravelCollective/html.git",
+                "reference": "5ef9a3c9ae2423fe5618996f3cde375d461a3fc6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/5ef9a3c9ae2423fe5618996f3cde375d461a3fc6",
+                "reference": "5ef9a3c9ae2423fe5618996f3cde375d461a3fc6",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "^6.0|^7.0",
+                "illuminate/routing": "^6.0|^7.0",
+                "illuminate/session": "^6.0|^7.0",
+                "illuminate/support": "^6.0|^7.0",
+                "illuminate/view": "^6.0|^7.0",
+                "php": ">=7.2.5"
+            },
+            "require-dev": {
+                "illuminate/database": "^6.0|^7.0",
+                "mockery/mockery": "~1.0",
+                "phpunit/phpunit": "~7.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "6.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Collective\\Html\\HtmlServiceProvider"
+                    ],
+                    "aliases": {
+                        "Form": "Collective\\Html\\FormFacade",
+                        "Html": "Collective\\Html\\HtmlFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Collective\\Html\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adam Engebretson",
+                    "email": "adam@laravelcollective.com"
+                },
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                }
+            ],
+            "description": "HTML and Form Builders for the Laravel Framework",
+            "homepage": "https://laravelcollective.com",
+            "time": "2020-05-19T18:02:16+00:00"
         },
         {
             "name": "mockery/mockery",

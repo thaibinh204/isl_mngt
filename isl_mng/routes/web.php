@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::resource('courses', 'CourseController');
+Route::resource('course_students', 'CourseStudentController');
+Route::resource('student', 'StudentController');
+Route::resource('study_types', 'StudyTypeController');
+Route::resource('tuition_fees', 'TuitionFeeController');
 
 Route::get('/', function () {
     return view('welcome');
