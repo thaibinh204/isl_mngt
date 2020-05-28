@@ -18,6 +18,34 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/assets/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="/assets/dist/css/adminlte.min.css">
+    <!-- Theme style -->
+  <link rel="stylesheet" href="/assets/dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+<!-- jQuery UI -->
+<script src="/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/assets/dist/js/demo.js"></script>
+<!-- fullCalendar 2.2.5 -->
+<script src="/assets/plugins/moment/moment.min.js"></script>
+<script src="/assets/plugins/fullcalendar/main.min.js"></script>
+<script src="/assets/plugins/fullcalendar-daygrid/main.min.js"></script>
+<script src="/assets/plugins/fullcalendar-timegrid/main.min.js"></script>
+<script src="/assets/plugins/fullcalendar-interaction/main.min.js"></script>
+<script src="/assets/plugins/fullcalendar-bootstrap/main.min.js"></script>
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+
+
 </head>
 <body>
     <div id="app">
@@ -70,10 +98,61 @@
                 </div>
             </div>
         </nav>
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+              with font-awesome or any other icon font library -->
 
+          <li class="nav-item">
+            <a href="/courses" class="nav-link">
+              <i class="nav-icon fas fa-graduation-cap"></i>
+              <p>Course</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/course-students" class="nav-link">
+              <i class="nav-icon fas fa-book-reader"></i>
+              <p>Course Student</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/students" class="nav-link">
+              <i class="nav-icon fas fa-user-graduate"></i>
+              <p>Student</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/study-types" class="nav-link">
+              <i class="nav-icon fas fa-university"></i>
+              <p>StudyType</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/tuition-fees" class="nav-link">
+              <i class="nav-icon fas fa-dollar-sign"></i>
+              <p>TuitionFee</p>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+  <!-- /.sidebar -->
+  </aside>
+  <div class="content-wrapper">
         <main class="py-4">
             @yield('content')
         </main>
-    </div>
+  </div>
 </body>
 </html>
