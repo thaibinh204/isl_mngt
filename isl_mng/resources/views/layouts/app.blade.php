@@ -143,6 +143,20 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="/skills" class="nav-link">
+              <i class="nav-icon fa fa-tasks"></i>
+              <p>Skill</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/schedules" class="nav-link">
+              <i class="nav-icon fa fa-calendar"></i>
+              <p>Schedules</p>
+            </a>
+          </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
