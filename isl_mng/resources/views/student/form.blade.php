@@ -18,7 +18,7 @@
         </div>
         <div class="form-group">
             {{ Form::label('birthday') }}
-            {{ Form::text('birthday', $student->birthday, ['class' => 'form-control' . ($errors->has('birthday') ? ' is-invalid' : ''), 'placeholder' => 'Birthday']) }}
+            {{ Form::date('birthday',$student->birthday, ['class' => 'form-control' . ($errors->has('birthday') ? ' is-invalid' : ''), 'placeholder' => 'Birthday']) }}
             {!! $errors->first('birthday', '<div class="invalid-feedback">:message</p>') !!}
         </div>
 

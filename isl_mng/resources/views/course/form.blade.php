@@ -8,12 +8,12 @@
         </div>
         <div class="form-group">
             {{ Form::label('start_date') }}
-            {{ Form::text('start_date', $course->start_date, ['class' => 'form-control' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Start Date']) }}
+            {{ Form::date('start_date', $course->start_date, ['class' => 'form-control' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Start Date']) }}
             {!! $errors->first('start_date', '<div class="invalid-feedback">:message</p>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('end_date') }}
-            {{ Form::text('end_date', $course->end_date, ['class' => 'form-control' . ($errors->has('end_date') ? ' is-invalid' : ''), 'placeholder' => 'End Date']) }}
+            {{ Form::date('end_date', $course->end_date, ['class' => 'form-control' . ($errors->has('end_date') ? ' is-invalid' : ''), 'placeholder' => 'End Date']) }}
             {!! $errors->first('end_date', '<div class="invalid-feedback">:message</p>') !!}
         </div>
         <div class="form-group">
