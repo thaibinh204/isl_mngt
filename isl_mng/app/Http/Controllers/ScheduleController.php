@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Schedule;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
-
+use DB;
 /**
  * Class ScheduleController
  * @package App\Http\Controllers
@@ -32,7 +33,8 @@ class ScheduleController extends Controller
     public function create()
     {
         $schedule = new Schedule();
-        return view('schedule.create', compact('schedule'));
+        $teachers = Teacher::select(DB::raw("id, CONCAT(last_name, ' ', first_name) AS full_name"))->get()->pluck('full_name', 'id');
+        return view('schedule.create', compact(['schedule', 'teachers']));
     }
 
     /**
