@@ -159,7 +159,7 @@
 
             <li class="nav-item">
               <a href="/schedules" class="nav-link">
-                <i class="nav-icon fas fa-file-check"></i>
+                <i class="nav-icon fas fa-stopwatch"></i>
                 <p>Schedules</p>
               </a>
             </li>
