@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Hamcrest\Core\HasToString;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -24,12 +25,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Schedule extends Model
 {
-    
+
     static $rules = [
-		'start_time' => 'required',
-		'end_time' => 'required',
-		'course_id' => 'required',
-		'teacher_id' => 'required',
+        'start_time' => 'required',
+        'end_time' => 'required',
+        'course_id' => 'required',
+        'teacher_id' => 'required',
     ];
 
     protected $perPage = 20;
@@ -39,7 +40,7 @@ class Schedule extends Model
      *
      * @var array
      */
-    protected $fillable = ['start_time','end_time','duration','remark','course_id','teacher_id'];
+    protected $fillable = ['start_time', 'end_time', 'duration', 'remark', 'course_id', 'teacher_id'];
 
 
     /**
@@ -49,7 +50,7 @@ class Schedule extends Model
     {
         return $this->hasOne('App\Models\Course', 'id', 'course_id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -57,6 +58,4 @@ class Schedule extends Model
     {
         return $this->hasOne('App\Models\Teacher', 'id', 'teacher_id');
     }
-    
-
 }

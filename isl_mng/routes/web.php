@@ -19,6 +19,9 @@ Route::resource('study-types', 'StudyTypeController');
 Route::resource('tuition-fees', 'TuitionFeeController');
 Route::resource('schedules', 'ScheduleController');
 Route::resource('skills', 'SkillController');
+Route::resource('teachers','TeacherController');
+Route::get('calendar','CalendarController@index');
+
 
 Route::get('/', function () {
     return view('welcome');

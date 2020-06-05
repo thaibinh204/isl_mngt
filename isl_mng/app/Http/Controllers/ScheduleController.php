@@ -34,6 +34,7 @@ class ScheduleController extends Controller
     {
         $schedule = new Schedule();
         $teachers = Teacher::select(DB::raw("id, CONCAT(last_name, ' ', first_name) AS full_name"))->get()->pluck('full_name', 'id');
+        //dd($teachers);
         return view('schedule.create', compact(['schedule', 'teachers']));
     }
 
@@ -75,8 +76,8 @@ class ScheduleController extends Controller
     public function edit($id)
     {
         $schedule = Schedule::find($id);
-
-        return view('schedule.edit', compact('schedule'));
+        $teachers = Teacher::select(DB::raw("id, CONCAT(last_name, ' ', first_name) AS full_name"))->get()->pluck('full_name', 'id');
+        return view('schedule.edit', compact(['schedule', 'teachers']));
     }
 
     /**
