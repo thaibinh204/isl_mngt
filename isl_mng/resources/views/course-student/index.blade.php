@@ -36,8 +36,8 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Students Id</th>
-										<th>Tuition Fees Id</th>
+										<th>Students Name</th>
+										<th>Tuition Fees</th>
 
                                         <th></th>
                                     </tr>
@@ -47,8 +47,8 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $courseStudent->students_id }}</td>
-											<td>{{ $courseStudent->tuition_fees_id }}</td>
+											<td>{{ $courseStudent->student->first_name." ".$courseStudent->student->last_name }}</td>
+											<td>{{ $courseStudent->tuitionFee->course->name."-".$courseStudent->tuitionFee->studyType->type_name}}</td>
 
                                             <td>
                                                 <form action="{{ route('course-students.destroy',$courseStudent->id) }}" method="POST">

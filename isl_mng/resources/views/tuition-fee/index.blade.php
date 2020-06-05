@@ -36,8 +36,8 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Course Id</th>
-										<th>Study Type Id</th>
+										<th>Course</th>
+										<th>Study Type</th>
 										<th>Fee</th>
 
                                         <th></th>
@@ -48,8 +48,8 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $tuitionFee->course_id }}</td>
-											<td>{{ $tuitionFee->study_type_id }}</td>
+											<td>{{ $tuitionFee->course->name }}</td>
+											<td>{{ $tuitionFee->studyType->type_name }}</td>
 											<td>{{ $tuitionFee->fee }}</td>
 
                                             <td>
