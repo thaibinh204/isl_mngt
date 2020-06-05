@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\StudyType;
 use App\Models\TuitionFee;
 use Illuminate\Http\Request;
 
@@ -32,7 +34,10 @@ class TuitionFeeController extends Controller
     public function create()
     {
         $tuitionFee = new TuitionFee();
-        return view('tuition-fee.create', compact('tuitionFee'));
+        $course = Course::select('id', 'name')->get()->pluck('name', 'id');
+        $studyType = StudyType::select('id', 'type_name')->get()->pluck('type_name', 'id');
+        //dd($course);
+        return view('tuition-fee.create', compact(['tuitionFee', 'course', 'studyType']));
     }
 
     /**
@@ -73,8 +78,10 @@ class TuitionFeeController extends Controller
     public function edit($id)
     {
         $tuitionFee = TuitionFee::find($id);
+        $course = Course::select('id', 'name')->get()->pluck('name', 'id');
+        $studyType = StudyType::select('id', 'type_name')->get()->pluck('type_name', 'id');
 
-        return view('tuition-fee.edit', compact('tuitionFee'));
+        return view('tuition-fee.edit', compact(['tuitionFee', 'course', 'studyType']));
     }
 
     /**

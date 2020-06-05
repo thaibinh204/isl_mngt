@@ -22,13 +22,14 @@
             {!! $errors->first('remark', '<div class="invalid-feedback">:message</p>') !!}
         </div>
         <div class="form-group">
-            {{ Form::label('course_id') }}
-            {{ Form::text('course_id', $schedule->course_id, ['class' => 'form-control' . ($errors->has('course_id') ? ' is-invalid' : ''), 'placeholder' => 'Course Id']) }}
+            {{ Form::label('') }}
+            <!-- {{ Form::text('course_id', $schedule->course_id, ['class' => 'form-control' . ($errors->has('course_id') ? ' is-invalid' : ''), 'placeholder' => 'Course Id']) }} -->
+            {!! Form::select('course_id', $course ?? '', null, ['class' => 'form-control']) !!}
             {!! $errors->first('course_id', '<div class="invalid-feedback">:message</p>') !!}
         </div>
         <div class="form-group">
-            {{ Form::label('Teacher Name') }}
-            {!! Form::select('teacher_id', $teachers, null, ['class' => 'form-control']) !!}
+            {{ Form::label('Teacher') }}
+            {!! Form::select('teacher_id', $teachers ?? '', null, ['class' => 'form-control']) !!}
             {!! $errors->first('teacher_id', '<div class="invalid-feedback">:message</p>') !!}
         </div>
 

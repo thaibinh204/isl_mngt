@@ -3,12 +3,14 @@
         
         <div class="form-group">
             {{ Form::label('students_id') }}
-            {{ Form::text('students_id', $courseStudent->students_id, ['class' => 'form-control' . ($errors->has('students_id') ? ' is-invalid' : ''), 'placeholder' => 'Students Id']) }}
+            <!-- {{ Form::text('students_id', $courseStudent->students_id, ['class' => 'form-control' . ($errors->has('students_id') ? ' is-invalid' : ''), 'placeholder' => 'Students Id']) }} -->
+            {!! Form::select('students_id', $students ?? '', null, ['class' => 'form-control']) !!}
             {!! $errors->first('students_id', '<div class="invalid-feedback">:message</p>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('tuition_fees_id') }}
-            {{ Form::text('tuition_fees_id', $courseStudent->tuition_fees_id, ['class' => 'form-control' . ($errors->has('tuition_fees_id') ? ' is-invalid' : ''), 'placeholder' => 'Tuition Fees Id']) }}
+            <!-- {{ Form::text('tuition_fees_id', $courseStudent->tuition_fees_id, ['class' => 'form-control' . ($errors->has('tuition_fees_id') ? ' is-invalid' : ''), 'placeholder' => 'Tuition Fees Id']) }} -->
+            {!! Form::select('tuition_fees_id', $tuitionFee ?? '', null, ['class' => 'form-control']) !!}
             {!! $errors->first('tuition_fees_id', '<div class="invalid-feedback">:message</p>') !!}
         </div>
 

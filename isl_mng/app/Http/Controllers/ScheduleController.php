@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Schedule;
 use App\Models\Teacher;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use DB;
 /**
@@ -34,8 +35,9 @@ class ScheduleController extends Controller
     {
         $schedule = new Schedule();
         $teachers = Teacher::select(DB::raw("id, CONCAT(last_name, ' ', first_name) AS full_name"))->get()->pluck('full_name', 'id');
+        $course = Course::select('id', 'name')->get()->pluck('name', 'id');
         //dd($teachers);
-        return view('schedule.create', compact(['schedule', 'teachers']));
+        return view('schedule.create', compact(['schedule', 'teachers', 'course']));
     }
 
     /**
@@ -77,7 +79,9 @@ class ScheduleController extends Controller
     {
         $schedule = Schedule::find($id);
         $teachers = Teacher::select(DB::raw("id, CONCAT(last_name, ' ', first_name) AS full_name"))->get()->pluck('full_name', 'id');
-        return view('schedule.edit', compact(['schedule', 'teachers']));
+        $course = Course::select('id', 'name')->get()->pluck('name', 'id');
+
+        return view('schedule.edit', compact(['schedule', 'teachers', 'course']));
     }
 
     /**

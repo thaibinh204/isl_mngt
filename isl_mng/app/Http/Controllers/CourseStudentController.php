@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\CourseStudent;
+use App\Models\Student;
+use App\Models\TuitionFee;
+use DB;
+
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +36,10 @@ class CourseStudentController extends Controller
     public function create()
     {
         $courseStudent = new CourseStudent();
-        return view('course-student.create', compact('courseStudent'));
+        $students = Student::select(DB::raw("id, CONCAT(last_name, ' ', first_name) AS full_name"))->get()->pluck('full_name', 'id');
+        $tuitionFee = DB::table("tuition_fees")->select("tuition_fees.id", DB::raw("CONCAT(courses.name,'-', study_types.type_name) AS name"))->join("courses", "tuition_fees.course_id", "=", "courses.id")->join("study_types", "tuition_fees.study_type_id", "=", "study_types.id")->get()->pluck("name", "id");
+        //dd($tuitionFee);
+        return view('course-student.create', compact(['courseStudent', 'students', 'tuitionFee']));
     }
 
     /**
@@ -73,8 +80,10 @@ class CourseStudentController extends Controller
     public function edit($id)
     {
         $courseStudent = CourseStudent::find($id);
+        $students = Student::select(DB::raw("id, CONCAT(last_name, ' ', first_name) AS full_name"))->get()->pluck('full_name', 'id');
+        $tuitionFee = DB::table("tuition_fees")->select("tuition_fees.id", DB::raw("CONCAT(courses.name,'-', study_types.type_name) AS name"))->join("courses", "tuition_fees.course_id", "=", "courses.id")->join("study_types", "tuition_fees.study_type_id", "=", "study_types.id")->get()->pluck("name", "id");
 
-        return view('course-student.edit', compact('courseStudent'));
+        return view('course-student.edit', compact(['courseStudent', 'students', 'tuitionFee']));
     }
 
     /**

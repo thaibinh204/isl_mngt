@@ -21,12 +21,12 @@
                     <div class="card-body">
                         
                         <div class="form-group">
-                            <strong>Students Id:</strong>
-                            {{ $courseStudent->students_id }}
+                            <strong>Students:</strong>
+                            {{ $courseStudent->student->first_name." ".$courseStudent->student->last_name }}
                         </div>
                         <div class="form-group">
-                            <strong>Tuition Fees Id:</strong>
-                            {{ $courseStudent->tuition_fees_id }}
+                            <strong>Tuition Fees:</strong>
+                            {{ $courseStudent->tuitionFee->course->name."-".$courseStudent->tuitionFee->studyType->type_name }}
                         </div>
 
                     </div>
