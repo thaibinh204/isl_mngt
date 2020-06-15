@@ -3,12 +3,14 @@
         
         <div class="form-group">
             {{ Form::label('start_time') }}
-            {{ Form::text('start_time', $schedule->start_time, ['class' => 'form-control' . ($errors->has('start_time') ? ' is-invalid' : ''), 'placeholder' => 'Start Time']) }}
+            {{ Form::date('start_time',$schedule->start_time, ['class' => 'form-control' . ($errors->has('start_time') ? ' is-invalid' : ''), 'placeholder' => 'StartTime']) }}
+            <!-- {{ Form::text('start_time', $schedule->start_time, ['class' => 'form-control' . ($errors->has('start_time') ? ' is-invalid' : ''), 'placeholder' => 'Start Time']) }} -->
             {!! $errors->first('start_time', '<div class="invalid-feedback">:message</p>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('end_time') }}
-            {{ Form::text('end_time', $schedule->end_time, ['class' => 'form-control' . ($errors->has('end_time') ? ' is-invalid' : ''), 'placeholder' => 'End Time']) }}
+            {{ Form::date('end_time',$schedule->end_time, ['class' => 'form-control' . ($errors->has('end_time') ? ' is-invalid' : ''), 'placeholder' => 'EndTime']) }}
+            <!-- {{ Form::text('end_time', $schedule->end_time, ['class' => 'form-control' . ($errors->has('end_time') ? ' is-invalid' : ''), 'placeholder' => 'End Time']) }} -->
             {!! $errors->first('end_time', '<div class="invalid-feedback">:message</p>') !!}
         </div>
         <div class="form-group">
