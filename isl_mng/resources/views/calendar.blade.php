@@ -78,8 +78,6 @@ Calendar
         });
         @endforeach
 
-        console.log(eventsList);
-
         var calendar = new Calendar(calendarEl, {
             plugins: ['bootstrap', 'interaction', 'dayGrid', 'timeGrid'],
             header: {
@@ -90,12 +88,16 @@ Calendar
             //Random default events
             events: eventsList,
             editable: true,
-            droppable: false
+            droppable: false,
         });
 
         calendar.render();
-    
+
+    $(".fc-day.fc-widget-content").click(function() {
+        var url = "{{route('schedules.create')}}";
+        document.location.href = url;
+        });
     })
+
 </script>
 @endsection()
- No newline at end of file

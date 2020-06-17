@@ -23,6 +23,7 @@ Route::resource('teachers','TeacherController');
 Route::get('calendar','CalendarController@index');
 
 
+
 Route::get('/', function () {
     return view('welcome');
 });

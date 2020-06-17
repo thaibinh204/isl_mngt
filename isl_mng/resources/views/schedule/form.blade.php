@@ -1,6 +1,5 @@
 <div class="box box-info padding-1">
     <div class="box-body">
-        
         <div class="form-group">
             {{ Form::label('start_time') }}
             {{ Form::date('start_time',$schedule->start_time, ['class' => 'form-control' . ($errors->has('start_time') ? ' is-invalid' : ''), 'placeholder' => 'StartTime']) }}
