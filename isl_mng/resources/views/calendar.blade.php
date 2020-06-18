@@ -21,6 +21,8 @@ Calendar
 @endsection
 
 @section('script')
+<script src="../plugins/fullcalendar-daygrid/main.min.js"></script>
+<script src="../plugins/fullcalendar-timegrid/main.min.js"></script>
 <script>
 
     
@@ -71,9 +73,9 @@ Calendar
         @foreach($data as $event)
         eventsList.push({
             'title': '{{$event->course->name}}/{{$event->teacher->first_name}} {{$event->teacher->last_name}}',
-            'start': '{{$event->start_time}}',
-            'end':  new Date({{explode("-",$event->end_time)[0]}}, {{explode("-",$event->end_time)[1]-1}}, {{substr(explode("-",$event->end_time)[2],0,2)+1}}),
-            'allDay': 'true',
+            'start': new Date('{{$event->start_time}}'),
+            'end': new Date('{{$event->end_time}}'),
+            'allDay': false,
             'backgroundColor': '#f39c12'
         });
         @endforeach
@@ -83,12 +85,28 @@ Calendar
             header: {
                 left: 'prev,next today',
                 center: 'title',
-                right: ''
+                right : 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            eventTimeFormat: { 
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12:false
             },
             //Random default events
             events: eventsList,
             editable: true,
             droppable: false,
+            eventClick: function(info) {
+                alert("OK");
+            },
+            slotLabelFormat: [
+            {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12:false
+            }
+        ],
+
         });
 
         calendar.render();
