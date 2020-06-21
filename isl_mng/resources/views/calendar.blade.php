@@ -79,7 +79,7 @@ Calendar
             'backgroundColor': '#f39c12'
         });
         @endforeach
-
+        
         var calendar = new Calendar(calendarEl, {
             plugins: ['bootstrap', 'interaction', 'dayGrid', 'timeGrid'],
             header: {

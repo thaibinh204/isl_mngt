@@ -20,10 +20,17 @@ Route::resource('tuition-fees', 'TuitionFeeController');
 Route::resource('schedules', 'ScheduleController');
 Route::resource('skills', 'SkillController');
 Route::resource('teachers','TeacherController');
+
 Route::get('calendar','CalendarController@index');
+Route::get('/', 'LoginController@index') -> name('index');
+Route::get('/login', 'LoginController@login') -> name('login');
+Route::post('/login/checkLogin', 'LoginController@checkLogin') -> name('checkLogin');
+Route::get('/logout','LoginController@logout')->name('logout');
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
