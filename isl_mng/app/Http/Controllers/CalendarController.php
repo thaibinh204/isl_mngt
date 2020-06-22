@@ -10,13 +10,17 @@ use Illuminate\Http\Request;
 use  Response;
 use DB;
 use Calendar;
+use Auth;
 
 
 class CalendarController extends Controller
 {
     public function index()
     {
-        $data = Schedule::get();
-        return view('calendar', compact('data'));
+        // $data = Schedule::get(); 
+        
+        $data = Schedule::where('teacher_id' , Auth::id())->get();
+        
+        return view('calendar', compact('data',));
     }
 }

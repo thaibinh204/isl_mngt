@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\Teacher as Authenticatable;
+
+
 
 /**
  * Class Teacher
@@ -21,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class Teacher extends Model
+class Teacher extends Model 
 {
     
     static $rules = [
@@ -35,7 +39,9 @@ class Teacher extends Model
      *
      * @var array
      */
-    protected $fillable = ['first_name','last_name','birthday','email'];
+    
+
+    protected $fillable = ['first_name','last_name','birthday','email','password'];
 
 
     /**

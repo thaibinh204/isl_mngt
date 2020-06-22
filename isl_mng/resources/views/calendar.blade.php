@@ -82,7 +82,7 @@ Calendar
             "url": "{{ route('createOrUpdate', $event->id) }}" ,
         });
         @endforeach
-
+        
         var calendar = new Calendar(calendarEl, {
             plugins: ['bootstrap', 'interaction', 'dayGrid', 'timeGrid'],
             header: {
