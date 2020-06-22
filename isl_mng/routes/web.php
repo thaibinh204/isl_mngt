@@ -20,7 +20,10 @@ Route::resource('tuition-fees', 'TuitionFeeController');
 Route::resource('schedules', 'ScheduleController');
 Route::resource('skills', 'SkillController');
 Route::resource('teachers','TeacherController');
+Route::resource('schedule-status', 'ScheduleStatusController');
 Route::get('calendar','CalendarController@index');
+Route::get('createOrUpdate/{id}','ScheduleStatusController@createOrUpdate')->name('createOrUpdate');
+
 
 
 

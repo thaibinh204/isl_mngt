@@ -171,6 +171,13 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              <a href="/schedule-status" class="nav-link">
+                <i class="nav-icon fas fa-chalkboard-teacher	"></i>
+                <p>Schedule Status</p>
+              </a>
+            </li>
+
 
           </ul>
         </nav>

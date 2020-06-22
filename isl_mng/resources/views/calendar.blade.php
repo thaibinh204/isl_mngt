@@ -71,12 +71,15 @@ Calendar
         var event = new Object();
 
         @foreach($data as $event)
+        console.log('{{$event->course}}');
         eventsList.push({
             'title': '{{$event->course->name}}/{{$event->teacher->first_name}} {{$event->teacher->last_name}}',
             'start': new Date('{{$event->start_time}}'),
             'end': new Date('{{$event->end_time}}'),
             'allDay': false,
-            'backgroundColor': '#f39c12'
+            'backgroundColor': '#f39c12',
+            'id' : '{{$event->course->id}}',
+            "url": "{{ route('createOrUpdate', $event->id) }}" ,
         });
         @endforeach
 
@@ -97,7 +100,7 @@ Calendar
             editable: true,
             droppable: false,
             eventClick: function(info) {
-                alert("OK");
+                console.log(info.event);
             },
             slotLabelFormat: [
             {
