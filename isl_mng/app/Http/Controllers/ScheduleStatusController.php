@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Teacher;
 use App\Models\ScheduleStatus;
+use App\Models\Schedule;
+use App\Models\Course;
 use Illuminate\Http\Request;
+use DB;
 
 /**
  * Class ScheduleStatusController
@@ -19,8 +22,14 @@ class ScheduleStatusController extends Controller
     public function index()
     {
         $scheduleStatuses = ScheduleStatus::paginate();
+        $status = [
+            1 => "Continue",
+            2 => "Change time",
+            3 => "Change teacher",
+            4 => "Cancel"
+        ];
 
-        return view('schedule-status.index', compact('scheduleStatuses'))
+        return view('schedule-status.index', compact('scheduleStatuses', 'status'))
             ->with('i', (request()->input('page', 1) - 1) * $scheduleStatuses->perPage());
     }
 
@@ -37,14 +46,27 @@ class ScheduleStatusController extends Controller
 
     public function createOrUpdate($id)
     {
+
+        $status = [
+            1 => "Continue",
+            2 => "Change time",
+            3 => "Change teacher",
+            4 => "Cancel"
+        ];
+
+        $selectedSchedule = Schedule::find($id);
+
+        $teachers = Teacher::select(DB::raw("id, CONCAT(last_name, ' ', first_name) AS full_name"))->get()->pluck('full_name', 'id');
+
         $scheduleStatus = ScheduleStatus::find($id);
         if($scheduleStatus){
-            return view('schedule-status.edit', compact('scheduleStatus'));
+            return view('schedule-status.edit', compact('scheduleStatus', 'status', 'teachers', 'selectedSchedule'));
 
             
         }else{
             $scheduleStatus = new ScheduleStatus();
-            return view('schedule-status.create', compact('scheduleStatus'));
+            $scheduleStatus->schedule_id = $id;
+            return view('schedule-status.create', compact('scheduleStatus', 'status', 'teachers', 'selectedSchedule'));
         }
         
     }
@@ -58,12 +80,26 @@ class ScheduleStatusController extends Controller
      */
     public function store(Request $request)
     {
+        if($request->status == '2'){// Change time
+            $start_time = $request->start_time;
+            $end_time = $request->end_time;
+            $schedule = Schedule::find($request->schedule_id);
+            $schedule->start_time = $start_time;
+            $schedule->end_time = $end_time;
+            $schedule->update();
+
+        }else if($request->status == '3'){// Change teacher
+            $teacherId = $request->teacher_id;
+            $schedule = Schedule::find($request->schedule_id);
+            $schedule->teacher_id = $teacherId;
+            $schedule->update();
+        }
         request()->validate(ScheduleStatus::$rules);
 
         $scheduleStatus = ScheduleStatus::create($request->all());
 
-        return redirect()->route('schedule-status.index')
-            ->with('success', 'ScheduleStatus created successfully.');
+        return redirect()->route('calendar')
+            ->with('success', 'Task update done');
     }
 
     /**
@@ -101,12 +137,27 @@ class ScheduleStatusController extends Controller
      */
     public function update(Request $request, ScheduleStatus $scheduleStatus)
     {
+        if($request->status == '2'){// Change time
+            $start_time = $request->start_time;
+            $end_time = $request->end_time;
+            $schedule = Schedule::find($scheduleStatus->schedule_id);
+            $schedule->start_time = $start_time;
+            $schedule->end_time = $end_time;
+            $schedule->update();
+
+        }else if($request->status == '3'){// Change teacher
+            $teacherId = $request->teacher_id;
+            $schedule = Schedule::find($scheduleStatus->schedule_id);
+            $schedule->teacher_id = $teacherId;
+            $schedule->update();
+        }
+
         request()->validate(ScheduleStatus::$rules);
 
         $scheduleStatus->update($request->all());
 
-        return redirect()->route('schedule-status.index')
-            ->with('success', 'ScheduleStatus updated successfully');
+        return redirect()->route('calendar')
+            ->with('success', 'Task update done');
     }
 
     /**

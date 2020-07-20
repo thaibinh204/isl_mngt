@@ -49,7 +49,7 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $scheduleStatus->schedule_id }}</td>
-											<td>{{ $scheduleStatus->status }}</td>
+											<td>{{ $status[$scheduleStatus->status] }}</td>
 											<td>{{ $scheduleStatus->remark }}</td>
 
                                             <td>

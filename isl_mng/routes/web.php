@@ -21,8 +21,11 @@ Route::resource('schedules', 'ScheduleController');
 Route::resource('skills', 'SkillController');
 Route::resource('teachers','TeacherController');
 Route::resource('schedule-status', 'ScheduleStatusController');
-Route::get('calendar','CalendarController@index');
+Route::get('calendar','CalendarController@index')->name('calendar');
+Route::post('filter-task','CalendarController@filterTask')->name('filter-task');
 Route::get('createOrUpdate/{id}','ScheduleStatusController@createOrUpdate')->name('createOrUpdate');
+Route::get('show_char','ChartController@index')->name('show_chart');
+
 
 
 

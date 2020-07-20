@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('template_title')
@@ -7,8 +6,25 @@ Calendar
 
 @section('content')
 
-<section class="content">
+<section class="content">   
     <div class="container-fluid">
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+        @endif
+        <form method="POST" id='filter' action="{{ route('filter-task')}}" role="form" enctype="multipart/form-data">
+            @csrf
+            <div>
+                <label>Teacher</label>
+                {!! Form::select('teacher_id', $teachers ?? '', $selectedTeacher, ['class' => 'form-control', 'id'=>'teacher_select']) !!}
+            </div>
+
+            <div>
+                <label>Course</label>
+                {!! Form::select('course_id', $course ?? '', $selectedCourse, ['class' => 'form-control', 'id'=>'course_select']) !!}
+            </div>
+        </form>
         <div class="row">
             <div class="card card-primary">
                 <div class="card-body p-0">
@@ -24,9 +40,12 @@ Calendar
 <script src="../plugins/fullcalendar-daygrid/main.min.js"></script>
 <script src="../plugins/fullcalendar-timegrid/main.min.js"></script>
 <script>
-
-    
     $(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         /* initialize the external events
          -----------------------------------------------------------------*/
@@ -78,22 +97,22 @@ Calendar
             'end': new Date('{{$event->end_time}}'),
             'allDay': false,
             'backgroundColor': '#f39c12',
-            'id' : '{{$event->course->id}}',
-            "url": "{{ route('createOrUpdate', $event->id) }}" ,
+            'id': '{{$event->course->id}}',
+            "url": "{{ route('createOrUpdate', $event->id) }}",
         });
         @endforeach
-        
+
         var calendar = new Calendar(calendarEl, {
             plugins: ['bootstrap', 'interaction', 'dayGrid', 'timeGrid'],
             header: {
                 left: 'prev,next today',
                 center: 'title',
-                right : 'dayGridMonth,timeGridWeek,timeGridDay'
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
             },
-            eventTimeFormat: { 
+            eventTimeFormat: {
                 hour: '2-digit',
                 minute: '2-digit',
-                hour12:false
+                hour12: false
             },
             //Random default events
             events: eventsList,
@@ -102,23 +121,30 @@ Calendar
             eventClick: function(info) {
                 console.log(info.event);
             },
-            slotLabelFormat: [
-            {
+            slotLabelFormat: [{
                 hour: '2-digit',
                 minute: '2-digit',
-                hour12:false
-            }
-        ],
+                hour12: false
+            }],
 
         });
 
         calendar.render();
 
-    $(".fc-day.fc-widget-content").click(function() {
-        var url = "{{route('schedules.create')}}";
-        document.location.href = url;
+        $(".fc-day.fc-widget-content").click(function() {
+            var url = "{{route('schedules.create')}}";
+            document.location.href = url;
         });
     })
 
+    $(document).ready(function() {
+        $('#teacher_select, #course_select').on('change', function() {
+            var course = $('#course_select').children("option:selected").val();
+            var teacher = $('#teacher_select').children("option:selected").val();
+
+            $( "#filter" ).submit();
+
+        });
+    });
 </script>
 @endsection()
