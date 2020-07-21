@@ -10,7 +10,7 @@ Chart
     <!-- BAR CHART -->
     <div class="card card-success">
         <div class="card-header">
-            <h3 class="card-title">Bar Chart</h3>
+            <h3 class="card-title">Teaching Time</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -20,7 +20,7 @@ Chart
         </div>
         <div class="card-body">
             <div class="chart">
-                <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                <canvas id="barChart" style="min-height: 500px; height: 500px; max-height: 750px; max-width: 100%;"></canvas>
             </div>
         </div>
         <!-- /.card-body -->
@@ -34,55 +34,34 @@ Chart
 <!-- ChartJS -->
 <script src="/assets/plugins/chart.js/Chart.min.js"></script>
 <script>
-    var areaChartData = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [{
-                label: 'Digital Goods',
-                backgroundColor: 'rgba(60,141,188,0.9)',
-                borderColor: 'rgba(60,141,188,0.8)',
-                pointRadius: false,
-                pointColor: '#3b8bba',
-                pointStrokeColor: 'rgba(60,141,188,1)',
-                pointHighlightFill: '#fff',
-                pointHighlightStroke: 'rgba(60,141,188,1)',
-                data: [28, 48, 40, 19, 86, 27, 90]
-            },
-            {
-                label: 'Electronics',
-                backgroundColor: 'rgba(210, 214, 222, 1)',
-                borderColor: 'rgba(210, 214, 222, 1)',
-                pointRadius: false,
-                pointColor: 'rgba(210, 214, 222, 1)',
-                pointStrokeColor: '#c1c7d1',
-                pointHighlightFill: '#fff',
-                pointHighlightStroke: 'rgba(220,220,220,1)',
-                data: [65, 59, 80, 81, 56, 55, 40]
-            },
-        ]
-    }
+
+    var jsonText = JSON.stringify('{{$jareaChartData}}').replace(/&quot;/g,'"').toString().substr(1).slice(0, -1);
+    var areaChartData = JSON.parse(jsonText);
 
     var areaChartOptions = {
         maintainAspectRatio: false,
         responsive: true,
+        datasetFill : false,
         legend: {
-            display: false
+            display: true
         },
         scales: {
             xAxes: [{
                 gridLines: {
-                    display: false,
+                    display: true,
                 }
             }],
             yAxes: [{
                 gridLines: {
-                    display: false,
+                    display: true,
+                },
+                ticks: {
+                    min: 0, //minimum tick
+                    max: 50, //maximum tick
                 }
             }]
         }
     }
-
-
-
 
     //-------------
     //- BAR CHART -
@@ -94,16 +73,13 @@ Chart
     barChartData.datasets[0] = temp1
     barChartData.datasets[1] = temp0
 
-    var barChartOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        datasetFill: false
-    }
+
 
     var barChart = new Chart(barChartCanvas, {
         type: 'bar',
         data: barChartData,
-        options: barChartOptions
+        options: areaChartOptions
     })
+
 </script>
 @endsection()
