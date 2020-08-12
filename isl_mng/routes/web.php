@@ -24,7 +24,9 @@ Route::resource('schedule-status', 'ScheduleStatusController');
 Route::get('calendar','CalendarController@index')->name('calendar');
 Route::post('filter-task','CalendarController@filterTask')->name('filter-task');
 Route::get('createOrUpdate/{id}','ScheduleStatusController@createOrUpdate')->name('createOrUpdate');
-Route::get('show_char','ChartController@index')->name('show_chart');
+Route::get('show_time_chart','ChartController@teacherVsTimeChart')->name('show_time_chart');
+Route::get('show_pay_chart','ChartController@payChart')->name('show_pay_chart');
+
 
 
 

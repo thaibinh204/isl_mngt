@@ -12,11 +12,12 @@ use  Response;
 use DB;
 use Calendar;
 use Auth;
+use Arrays;
 
 
 class ChartController extends Controller
 {
-    public function index()
+    public function teacherVsTimeChart()
     {
         $color = ['(60, 141, 188, 0.9)', '(189, 0, 0, 0.9)', '(82, 189, 0, 0.9)', '(0, 189, 97, 0.9)', '(0, 179, 189, 0.9)', '(0, 116, 189, 0.9)', '(0, 47, 189, 0.9)', '(142, 0, 189, 0.9)', '(189, 0, 101, 0.9)'];
         $monthList = Schedule::select(DB::raw("distinct MONTH(start_time) as month"))->orderByRaw('month')->get();
@@ -25,8 +26,8 @@ class ChartController extends Controller
             ->select('schedules.teacher_id AS teacher_id', 'teachers.last_name', 'teachers.first_name')
             ->groupBy('teacher_id')
             ->get();
-        $listItems = [];
 
+        $listItems = [];
 
         $labels = [];
         for ($i = 0; $i < count($monthList); $i++) {
@@ -92,11 +93,138 @@ class ChartController extends Controller
 
         //$newData = json_encode($areaChartData,TRUE);
         //dd($jareaChartData[0]);
-        return view('chart', compact('jareaChartData', 'teacher'));
+        return view('chart-time', compact('jareaChartData', 'teacher'));
     }
 
     function convertToMonth($month)
     {
         return date("F", mktime(0, 0, 0, $month, 10));
+    }
+
+    function payChart()
+    {
+        $courseToTalList = $this->getCourseAndTotalSalary();
+        //dd($courseToTalList);
+
+        $labels = [];
+        $teacherPayData = [];
+        $studentPaiedData = [];
+
+        for ($i = 0; $i < count($courseToTalList); $i++) {
+            array_push($labels, $courseToTalList[$i]->name);
+            $studentPaiedList = $this->getPaiedFeeByCourse($courseToTalList[$i]->course_id);
+            //dd($studentPaiedList);
+            $courseToTalList[$i]->student_paied = $studentPaiedList[0]->charged_fee;
+            array_push($teacherPayData, $courseToTalList[$i]->teacher_pay);
+            array_push($studentPaiedData, $courseToTalList[$i]->student_paied);
+
+        }
+        //dd($courseToTalList);
+
+        $teacherPay = (object)[
+            'label'                => 'Pay for teacher',
+            'backgroundColor'      => 'rgba(60,141,188,0.9)',
+            'borderColor'          => 'rgba(60,141,188,0.8)',
+            'pointRadius'          => 'false',
+            'pointColor'           => '#3b8bba',
+            'minBarLength'         =>  '0',
+            'barPercentage'        =>  '2',
+            'barThickness'         =>  '50',
+            'maxBarThickness'      =>  '150',
+            'pointStrokeColor'     => 'rgba(60,141,188,1)',
+            'pointHighlightFill'   => '#fff',
+            'pointHighlightStroke' => 'rgba(60, 141, 188, 0.9)',
+            'data'                 => $teacherPayData
+        ];
+
+        $studentPaied = (object)[
+            'label'                => 'Student Paied',
+            'backgroundColor'      => 'rgba(189, 0, 0, 0.9)',
+            'borderColor'          => 'rgba(60,141,188,0.8)',
+            'pointRadius'          => 'false',
+            'pointColor'           => '#3b8bba',
+            'minBarLength'         =>  '0',
+            'barPercentage'        =>  '2',
+            'barThickness'         =>  '50',
+            'maxBarThickness'      =>  '150',
+            'pointStrokeColor'     => 'rgba(60,141,188,1)',
+            'pointHighlightFill'   => '#fff',
+            'pointHighlightStroke' => 'rgba(189, 0, 0, 0.9)',
+            'data'                 => $studentPaiedData
+        ];
+        
+        $listItems = [];
+        array_push($listItems, $teacherPay, $studentPaied);
+
+        //dd($listItems);
+
+        $areaChartData = (object)[
+            'labels'    => $labels, 'datasets' => $listItems
+        ];
+        $jareaChartData = json_encode($areaChartData);
+        //\Debugbar::info($areaChartData);
+        //dd($jareaChartData);
+
+        //$newData = json_encode($areaChartData,TRUE);
+        //dd($jareaChartData[0]);
+        return view('chart-pay', compact('jareaChartData'));
+
+
+    }
+
+    function getPaiedFeeByCourse($courseId)
+    {
+        $list = DB::table('courses')
+            ->join('tuition_fees', 'courses.id', '=', 'tuition_fees.course_id')
+            ->join('fee_status',  'tuition_fees.id', '=', 'fee_status.tuition_fee_id')
+            ->select('courses.id', DB::raw('SUM(fee_status.charged_fee) AS charged_fee'))
+            ->groupBy('courses.id')
+            ->where('courses.id', $courseId)
+            ->get();
+
+        return ($list);
+    }
+
+
+    function chkCourseExistInArray($courseId, $list)
+    {
+        foreach ($list as $item) {
+            if ($item->course_id == $courseId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function getCourseAndTotalSalary()
+    {
+        $list = DB::table('schedules')
+            ->join('teachers', 'schedules.teacher_id', '=', 'teachers.id')
+            ->join('courses',  'schedules.teacher_id', '=', 'courses.id')
+            ->select('schedules.course_id', 'courses.name', 'schedules.teacher_id', 'teachers.hour_salary', DB::raw('SUM(schedules.duration) * teachers.hour_salary AS salary'))
+            ->groupBy('schedules.course_id', 'schedules.teacher_id')
+            ->get();
+
+        $courseSalary = array();
+        for ($i = 0; $i < count($list); $i++) {
+            $key = $list[$i]->course_id;
+            //dd($list[$i]);
+            if (!$this->chkCourseExistInArray($key, $courseSalary)) {
+                array_push($courseSalary, (object)[
+                    'course_id' => $list[$i]->course_id,
+                    'name' => $list[$i]->name,
+                    'teacher_pay' => $list[$i]->salary,
+                    'student_paied' => 0
+                ]);
+            } else {
+                foreach ($courseSalary as $item) {
+                    if ($item->course_id == $list[$i]->course_id) {
+                        $item->teacher_pay = $item->teacher_pay + $list[$i]->salary;
+                    }
+                }
+            }
+        }
+
+        return $courseSalary;
     }
 }

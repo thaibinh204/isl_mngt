@@ -10,7 +10,7 @@ Chart
     <!-- BAR CHART -->
     <div class="card card-success">
         <div class="card-header">
-            <h3 class="card-title">Teaching Time</h3>
+            <h3 class="card-title">Pay Fee</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -37,6 +37,7 @@ Chart
 
     var jsonText = JSON.stringify('{{$jareaChartData}}').replace(/&quot;/g,'"').toString().substr(1).slice(0, -1);
     var areaChartData = JSON.parse(jsonText);
+    console.log(areaChartData);
 
     var areaChartOptions = {
         maintainAspectRatio: false,
@@ -57,7 +58,7 @@ Chart
                 },
                 ticks: {
                     min: 0, //minimum tick
-                    max: 50, //maximum tick
+                    //max: 50, //maximum tick
                 }
             }]
         }
